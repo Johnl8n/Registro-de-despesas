@@ -1,52 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:resgistro_despesas/screens/AdicionarDespesas.dart';
+import 'package:resgistro_despesas/screens/despesas.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int _selectedPageIndex = 0;
+
+  void _selecionarPaginas(int index) {
+    setState(() {
+      _selectedPageIndex = index;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text("Teste"),),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: (null), 
-        child: const Icon(Icons.add),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(100)),
-        ),
+    Widget ativarPagina = const DespesasLista();
+    var tituloPagina = 'Despesas';
+
+    if (_selectedPageIndex == 1) {
+      ativarPagina = const AdicionarDespesas();
+      tituloPagina = 'Adicionar Despesas';
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(tituloPagina),
+        backgroundColor: Colors.green,
+
       ),
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        color: Colors.purple,
-        child: IconTheme(
-          data: IconThemeData(color: Colors.white),
-          child: Padding(
-            padding: const EdgeInsets.all(10.0), 
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                IconButton(
-                  onPressed: (null),
-                  icon: Icon(Icons.home)
-                ),
-                 IconButton(
-                  onPressed: (null),
-                  icon: Icon(Icons.list)
-                ),
-                SizedBox(width: 20,),
-                IconButton(
-                  onPressed: (null),
-                  icon: Icon(Icons.air_rounded)
-                ),
-                IconButton(
-                  onPressed: (null),
-                  icon: Icon(Icons.air_rounded)
-                )
-              ],
-            ),
+      body: ativarPagina,
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: _selecionarPaginas,
+        currentIndex: _selectedPageIndex,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Despesas',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: 'Adicionar',
+          ),
+        ],
       ),
     );
   }
