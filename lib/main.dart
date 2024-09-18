@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:resgistro_despesas/screens/AdicionarDespesas.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resgistro_despesas/screens/home.dart';
 
 void main() {
@@ -11,14 +11,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Despesas',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 0, 155, 6)),
-        useMaterial3: true,
+    return ProviderScope(
+      child: MaterialApp(
+        title: 'Flutter Despesas',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 0, 155, 6)),
+          useMaterial3: true,
+        ),
+        home: const Home(),
       ),
-      home: const Home(),
     );
   }
 }
-
