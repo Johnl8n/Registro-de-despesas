@@ -10,8 +10,9 @@ enum Categorias {
 }
 
 class Categoria {
-  const Categoria(this.title, this.color);
+  const Categoria(this.id, this.title, this.color);
 
+  final int id;
   final String title;
   final Color color;
 }
