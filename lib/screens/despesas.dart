@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resgistro_despesas/providers/despesas_provider.dart';
+import 'detalhesDespesa.dart';
 
 class DespesasLista extends ConsumerWidget {
   const DespesasLista({super.key});
@@ -20,10 +21,21 @@ class DespesasLista extends ConsumerWidget {
               itemCount: despesas.length,
               itemBuilder: (context, index) {
                 final despesa = despesas[index];
-                return ListTile(
-                  title: Text(despesa.descricao),
-                  subtitle: Text('Categoria: ${despesa.categoria.title}'),
-                  trailing: Text('R\$ ${despesa.preco.toStringAsFixed(2)}'),
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetalhesDespesa(despesa: despesa),
+                      ),
+                    );
+                  },
+                  child: ListTile(
+                    title: Text(despesa.descricao),
+                    subtitle: Text('Categoria: ${despesa.categoria.title}'),
+                    trailing: Text('R\$ ${despesa.preco.toStringAsFixed(2)}'),
+                    leading: Text(despesa.id.toString()),
+                  ),
                 );
               },
             ),
