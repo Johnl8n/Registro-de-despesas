@@ -18,11 +18,27 @@ class DespesasNotifier extends StateNotifier<List<Despesa>> {
       preco: preco,
     );
     state = [...state, novaDespesa];
-    await _saveDespesas(); 
+    await _saveDespesas();
   }
 
   Future<void> removeDespesa(int id) async {
     state = state.where((despesa) => despesa.id != id).toList();
+    await _saveDespesas();
+  }
+
+  Future<void> editDespesa(int id, String descricao, Categoria categoria, double preco) async {
+    state = state.map((despesa) {
+      if (despesa.id == id) {
+        return Despesa(
+          id: despesa.id,
+          descricao: descricao,
+          categoria: categoria,
+          preco: preco,
+        );
+      }
+      return despesa;
+    }).toList();
+
     await _saveDespesas();
   }
 

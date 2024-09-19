@@ -74,8 +74,8 @@ class _DetalhesDespesaState extends ConsumerState<DetalhesDespesa> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      despesasNotifier.removeDespesa(widget.despesa.id);
-                      despesasNotifier.addDespesa(
+                      despesasNotifier.editDespesa(
+                        widget.despesa.id,
                         descricaoController.text,
                         widget.despesa.categoria,
                         double.tryParse(precoController.text) ?? widget.despesa.preco,
